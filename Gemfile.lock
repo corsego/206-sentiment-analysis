@@ -245,6 +245,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentimental (1.5.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -315,6 +316,7 @@ DEPENDENCIES
   rails (~> 7.2.1, >= 7.2.1.1)
   rubocop-rails-omakase
   selenium-webdriver
+  sentimental (~> 1.5)
   sprockets-rails
   sqlite3 (>= 1.4)
   stimulus-rails

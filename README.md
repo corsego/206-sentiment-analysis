@@ -1,24 +1,55 @@
-# README
+# Sentiment analysis of Udemy reviews
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```ruby
+require 'csv'
 
-Things you may want to cover:
+file_path = "db/data/Udemy_Reviews_Export_2024-10-20_20-13-07.csv"
 
-* Ruby version
+# CSV: get an array of all ratings
 
-* System dependencies
+ratings = []
 
-* Configuration
+CSV.foreach(file_path, headers: true) do |row|
+  rating = row['Rating']
+  ratings << rating.to_f unless rating.nil?
+end
 
-* Database creation
+average_rating = ratings.sum / ratings.size
 
-* Database initialization
+average_rating.round(2)
 
-* How to run the test suite
+# CSV: get an array of all comments
 
-* Services (job queues, cache servers, search engines, etc.)
+comments = []
 
-* Deployment instructions
+CSV.foreach(file_path, headers: true) do |row|
+  comment = row['Comment']
+  comments << comment unless comment.nil? || comment.strip.empty?
+end
 
-* ...
+# Get average sentiment
+
+sentiment_counts = { positive: 0, negative: 0, neutral: 0 }
+
+comments.each do |comment|
+  sentiment = analyzer.sentiment(comment)
+  sentiment_counts[sentiment] += 1
+end
+
+# sentiment_counts
+# => {:positive=>87, :negative=>16, :neutral=>10}
+
+# Get average score
+
+total_score = 0.0
+
+comments.each do |comment|
+  score = analyzer.score(comment)
+  total_score += score
+end
+
+average_score = total_score / comments.size
+
+# average_score
+# => 1.0640205752212393
+```
